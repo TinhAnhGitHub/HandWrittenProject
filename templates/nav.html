@@ -1,0 +1,16 @@
+
+{% load static %}
+<header id="main-header">
+    <div class="container">
+        <div id="branding">
+            <a href="{% url 'home' %}"><img src="{% static 'images/default-logo.png' %}" class="logo-images"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'contact' %}"><span>Contact</span></a></li>
+                <li><a href="{% url 'about' %}"><span>About</span></a></li>
+                <li><a href="{% url 'home' %}">Home</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>

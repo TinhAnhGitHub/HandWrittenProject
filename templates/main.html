@@ -1,0 +1,47 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="keywords" content="Latest projects">
+        <meta name="description" content="">
+        <title>Personal Project</title>
+        <link 
+        rel="stylesheet" 
+        href="{% static 'style.css' %}">
+
+    </head>
+    <body>
+        <header id="main-header">
+            <div class="container">
+                <div id="branding">
+                    <a href="{% url 'home' %}"><img src="{% static 'images/default-logo.png' %}" class="logo-images"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="{% url 'contact' %}"><span>Contact</span></a></li>
+                        <li><a href="{% url 'about' %}"><span>About</span></a></li>
+                        <li class="current"><a href="{% url 'home' %}">Home</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <!-- This block content could be from Home Contact About and other stuff-->
+        {% block content %} 
+
+
+        {% endblock %}
+
+
+        <footer>
+            Created by Nguyen Tien Thinh's student group, with HTML JS CSS and DJANGO
+        </footer>
+    </body>
+
+    
+
+
+</html>

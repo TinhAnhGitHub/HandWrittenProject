@@ -1,0 +1,42 @@
+<!-- {% load static %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="keywords" content="Latest projects">
+        <meta name="description" content="">
+        <title>Personal Project</title>
+        <link 
+        rel="stylesheet" 
+        href="../static/style.css">
+    </head>
+    <body>
+        <header id="main-header">
+            <div class="container">
+                <div id="branding">
+                    <a href="{% url 'home' %}"><img src="{% static 'images/default-logo.png' %}" class="logo-images"></a>
+                </div>
+                <nav>
+                    <ul>
+                        <li class="current"><a href="{% url 'contact' %}">Contact</a></li>
+                        <li><a href="{% url 'about' %}"><span>About</span></a></li>
+                        <li><a href="{% url 'home' %}"><span>Home</span></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        
+
+
+        <footer>
+            Created by Nguyen Tien Thinh's student group, with HTML JS CSS and DJANGO
+        </footer>
+    </body>
+
+    
+
+
+</html>

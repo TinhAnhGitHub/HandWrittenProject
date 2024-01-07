@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% load static %} 
+{% block content %}
+
+        <section id="showcase">
+            <div class="container showcase" >
+                <h1>Projects</h1>
+                <p>Here are some available project(s). Check it out!</p>
+                <div id="boxes">
+                    <div class="container boxes">
+                        <a href="{% url 'project_one' %}">
+                            <div class="box">
+                                <img src="{% static 'images/mnist.jpg' %}">
+                                <h2 style="font-family: FreeMono, monospace;">HandWritten Digit Recognition</h2>
+                                <p style="font-size: 15px;">
+                                    HandWritten Digit Recognition by model LeNet5
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+{% endblock %}

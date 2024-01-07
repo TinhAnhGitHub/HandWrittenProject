@@ -1,0 +1,27 @@
+{% extends 'Project1.html' %}
+{% load static %}
+{% block content %}
+
+    <h1>Prediction</h1>
+    {% if print %}
+    <h3>{{result}}</h3>
+    {% endif %}
+
+  
+    {% if not print %}
+    <h3>{{result}}</h3>
+    {% endif %}
+
+    <img class="column" src="{{img_url}}" id="columnHome">
+    {% if result != 'Blank canvas - No prediction' and result != 'Blank canvas' %}
+    
+    <form action="" method="POST" name="confirm-form">
+        <button type="submit" name="error-detect">
+            Detect Wrong Prediction
+        </button>
+
+    </form>
+    {% endif %}
+    <!-- Include dom.js script at the end of the body -->
+    <script src="{% static 'dom.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,217 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="utf-8">
+        <meta name="keywords" content="Latest projects">
+        <meta name="description" content="">
+        <title>Personal Project</title>
+        <link rel="stylesheet" href="{% static 'style.css' %}">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="{% static 'dom.js' %}"></script>
+        <script>
+            
+        </script>
+    </head>
+
+    <body>
+        
+        
+        {% include 'nav.html'%}
+
+
+
+        <section id="drawReg">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h1>Digit Recognition</h1>
+                    <h3>Draw your digit</h3>
+                    <canvas id="drawCanvas" width="280" height="280" class="column" >
+
+                    </canvas>
+                    <form action="" method="POST" id="canvas-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="image" id="hiddenData" />
+                        <button type="submit" id="saveButt" name="submit-canvas" onclick="sendCanvas('canvas-form', 'hiddenData');">Predict</button>
+                        <button type="button" id="clearButton" onclick="clearCanvas()" >Clear</button>
+                    </form>
+                </div>
+                
+            </div>
+        </section>
+
+
+        <section id="predict-chart">
+            <div class="container">
+                <div id="content">
+               
+                    {% block content %}
+
+                    {% endblock %}
+                </div>
+
+                <div id="chart">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+ 
+        <section id="MDI">
+
+            <div id="containerMDI"></div>
+                <div id="introduction">
+                    <h1>Model LeNet5</h1>
+                    <p>
+                        Proin tincidunt eros tortor, vitae vehicula 
+                        sem venenatis at. Morbi vel sapien a metus 
+                        egestas rutrum. In porttitor metus vitae lectus 
+                        ullamcorper tincidunt. Vestibulum lacinia quam 
+                        quis est sodales blandit. Donec ac orci id ante 
+                        commodo ultricies. Nullam dapibus, magna ut 
+                        molestie rhoncus, neque lacus fermentum ante, a 
+                        placerat ligula nisl vestibulum libero. 
+                        Nulla sollicitudin laoreet pellentesque. 
+                        Phasellus eleifend velit justo, sed aliquet 
+                        tortor facilisis tempus. Maecenas felis ligula, 
+                        vestibulum quis libero ac, condimentum malesuada 
+                        turpis. Donec libero urna, iaculis nec justo quis, 
+                        eleifend vulputate felis.
+                    </p>
+                    <p>
+                        Proin tincidunt eros tortor, vitae vehicula 
+                        sem venenatis at. Morbi vel sapien a metus 
+                        egestas rutrum. In porttitor metus vitae lectus 
+                        ullamcorper tincidunt. Vestibulum lacinia quam 
+                        quis est sodales blandit. Donec ac orci id ante 
+                        commodo ultricies. Nullam dapibus, magna ut 
+                        molestie rhoncus, neque lacus fermentum ante, a 
+                        placerat ligula nisl vestibulum libero. 
+                        Nulla sollicitudin laoreet pellentesque. 
+                        Phasellus eleifend velit justo, sed aliquet 
+                        tortor facilisis tempus. Maecenas felis ligula, 
+                        vestibulum quis libero ac, condimentum malesuada 
+                        turpis. Donec libero urna, iaculis nec justo quis, 
+                        eleifend vulputate felis.
+                    </p>
+                </div>
+
+
+
+                <div id="img-and-settings">
+                    <div id="model-img">
+                        <h1>Model LeNet visualizing architecture</h1>
+                        <img src="{% static 'images/lenet.png'%}">
+                    </div>
+
+                    <div id="settings">
+                        <h1>Training configuration</h1>
+                        <p>
+                            Proin tincidunt eros tortor, vitae vehicula 
+                            sem venenatis at. Morbi vel sapien a metus 
+                            egestas rutrum. In porttitor metus vitae lectus 
+                            ullamcorper tincidunt. Vestibulum lacinia quam 
+                            quis est sodales blandit. Donec ac orci id ante 
+                            commodo ultricies. Nullam dapibus, magna ut 
+                            molestie rhoncus, neque lacus fermentum ante, a 
+                            placerat ligula nisl vestibulum libero. 
+                            Nulla sollicitudin laoreet pellentesque. 
+                            Phasellus eleifend velit justo, sed aliquet 
+                            tortor facilisis tempus. Maecenas felis ligula, 
+                            vestibulum quis libero ac, condimentum malesuada 
+                            turpis. Donec libero urna, iaculis nec justo quis, 
+                            eleifend vulputate felis.
+                        </p>
+                    </div>
+                </div>
+        </section>
+        <script src="{% static 'dom.js' %}"></script>
+
+        <script>
+            
+
+            
+            let Del = false;
+            let PROBS = JSON.parse('{{ pred_list|escapejs }}');
+            let myChart;
+            function sendCanvas(form_id, img_name){
+                var canvas = document.getElementById('drawCanvas');
+                document.getElementById(img_name).value = canvas.toDataURL('image/png');
+                document.forms[form_id].submit(function(){
+                    return false;
+                });
+                
+            }
+            function clearCanvas() {
+                const canvas = document.getElementById('drawCanvas');
+                const context = canvas.getContext('2d');
+
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.fillStyle='black';
+                context.fillRect(0,0,canvas.width,canvas.height);
+
+                var canvasTmp = document.createElement('canvas');
+                canvasTmp.width = canvas.width;
+                canvasTmp.height = canvas.height;
+
+            
+                var ctx = canvasTmp.getContext('2d');
+
+            
+                ctx.fillStyle = '#000000';
+                ctx.fillRect(0, 0, canvasTmp.width, canvasTmp.height);
+
+            
+                var dataURL = canvasTmp.toDataURL();
+
+                
+                document.getElementById('columnHome').src = dataURL;
+                
+                Del = true;
+                let anotherArray = Array.from({ length: 10 }, () => 0);
+                if(myChart){
+                    
+                    myChart.destroy();
+                }
+                drawChart(anotherArray);
+                
+            }
+            
+            console.log(PROBS)
+            function drawChart(listProbabilities){
+                var labelS = Array.from({ length: 10 }, (_, index) => (index).toString());
+                
+                var data = {
+                    labels: labelS,
+                    datasets : [{
+                        label: "Probabilities",
+                        backgroundColor: "rgba(75,192,192,0.2)",
+                        borderColor: "rgba(75,192,192,1)",
+                        borderWidth: 1,
+                        data : listProbabilities
+                    }]
+                };
+
+                var ctx = document.getElementById("myChart").getContext("2d");
+                myChart = new Chart(ctx, {
+                    type: "bar",
+                    data: data
+                });
+
+                setTimeout(function(){
+                    myChart.data.datasets[0].data = listProbabilities;
+                    myChart.update
+                    PROBS = listProbabilities
+                }, 500)
+
+            }
+
+            drawChart(PROBS);
+            
+           
+            
+        </script>
+    </body>
+</html>
